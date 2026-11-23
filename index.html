@@ -1,0 +1,773 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Urología ABP</title>
+  <meta name="description" content="Espacio educativo de urología basado en el Aprendizaje Basado en Problemas (ABP).">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f6f8fa;
+      --surface: #ffffff;
+      --surface-2: #eef3f6;
+      --text: #14232e;
+      --muted: #52626e;
+      --border: #d9e2e8;
+      --primary: #0b6e79;
+      --primary-strong: #08525a;
+      --primary-soft: #e2f1f2;
+      --accent: #c2410c;
+      --success: #15803d;
+      --shadow: 0 1px 2px rgba(16, 35, 46, .06), 0 4px 16px rgba(16, 35, 46, .06);
+      --radius: 14px;
+      --maxw: 1120px;
+      --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+      --sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #0e171d;
+        --surface: #15222a;
+        --surface-2: #1b2b34;
+        --text: #e6eef2;
+        --muted: #9cb0bb;
+        --border: #2a3d48;
+        --primary: #4fb7c1;
+        --primary-strong: #7fd0d7;
+        --primary-soft: #173840;
+        --accent: #fb923c;
+        --success: #4ade80;
+        --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.25);
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #0e171d;
+      --surface: #15222a;
+      --surface-2: #1b2b34;
+      --text: #e6eef2;
+      --muted: #9cb0bb;
+      --border: #2a3d48;
+      --primary: #4fb7c1;
+      --primary-strong: #7fd0d7;
+      --primary-soft: #173840;
+      --accent: #fb923c;
+      --success: #4ade80;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 4px 16px rgba(0,0,0,.25);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3 { font-family: var(--serif); line-height: 1.2; margin: 0 0 .5em; letter-spacing: -.01em; }
+    h1 { font-size: clamp(2rem, 4.5vw, 3.1rem); }
+    h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); }
+    h3 { font-size: 1.2rem; }
+    p { margin: 0 0 1em; }
+    a { color: var(--primary); }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 16px; }
+    @media (min-width: 720px) { .wrap { padding: 0 28px; } }
+
+    /* Header */
+    .site-header {
+      position: sticky; top: 0; z-index: 10;
+      background: color-mix(in srgb, var(--surface) 88%, transparent);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    .site-header .wrap { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 64px; }
+    .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--text); font-weight: 700; }
+    .brand-mark {
+      width: 34px; height: 34px; border-radius: 9px; background: var(--primary); color: #fff;
+      display: grid; place-items: center; font-family: var(--serif); font-size: 1.05rem;
+    }
+    .brand small { display: block; font-weight: 500; color: var(--muted); font-size: .75rem; line-height: 1.1; }
+    .nav { display: flex; gap: 4px; align-items: center; }
+    .nav a {
+      text-decoration: none; color: var(--muted); font-weight: 500; font-size: .92rem;
+      padding: 8px 12px; border-radius: 8px;
+    }
+    .nav a:hover { background: var(--surface-2); color: var(--text); }
+    .theme-btn {
+      border: 1px solid var(--border); background: var(--surface); color: var(--text);
+      border-radius: 8px; width: 38px; height: 38px; cursor: pointer; display: grid; place-items: center;
+    }
+    @media (max-width: 640px) { .nav a.hide-sm { display: none; } .brand small { display: none; } }
+
+    /* Hero */
+    .hero { padding: 64px 0 48px; }
+    .eyebrow {
+      display: inline-block; font-size: .8rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--primary); background: var(--primary-soft); padding: 4px 10px; border-radius: 999px; margin-bottom: 16px;
+    }
+    .hero-grid { display: grid; gap: 32px; align-items: center; }
+    @media (min-width: 900px) { .hero-grid { grid-template-columns: 1.25fr 1fr; } }
+    .lead { font-size: 1.15rem; color: var(--muted); max-width: 60ch; }
+    .btns { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 10px;
+      font-weight: 600; text-decoration: none; border: 1px solid transparent; cursor: pointer; font-size: .95rem;
+      font-family: inherit;
+    }
+    .btn-primary { background: var(--primary); color: #fff; }
+    .btn-primary:hover { background: var(--primary-strong); }
+    :root[data-theme="dark"] .btn-primary, :root[data-theme="dark"] .brand-mark { color: #0e171d; }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .btn-primary, :root:not([data-theme="light"]) .brand-mark { color: #0e171d; } }
+    .btn-ghost { background: var(--surface); color: var(--text); border-color: var(--border); }
+    .btn-ghost:hover { background: var(--surface-2); }
+    .welcome-card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 24px; box-shadow: var(--shadow);
+    }
+    .welcome-card h3 { margin-bottom: 12px; }
+    .welcome-card ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+    .welcome-card li { display: flex; gap: 12px; align-items: flex-start; color: var(--muted); }
+    .welcome-card li strong { color: var(--text); display: block; }
+    .dot {
+      flex: none; width: 28px; height: 28px; border-radius: 50%; background: var(--primary-soft); color: var(--primary);
+      display: grid; place-items: center; font-weight: 700; font-size: .85rem;
+    }
+
+    /* Sections */
+    section.block { padding: 56px 0; }
+    section.alt { background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .section-head { max-width: 70ch; margin-bottom: 32px; }
+    .section-head p { color: var(--muted); }
+
+    .cards-3 { display: grid; gap: 16px; }
+    @media (min-width: 760px) { .cards-3 { grid-template-columns: repeat(3, 1fr); } }
+    .info-card {
+      background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px;
+    }
+    .info-card p { color: var(--muted); margin: 0; }
+
+    .steps { list-style: none; margin: 40px 0 0; padding: 0; display: grid; gap: 12px; counter-reset: step; }
+    @media (min-width: 760px) { .steps { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 1040px) { .steps { grid-template-columns: repeat(4, 1fr); } }
+    .steps li {
+      position: relative; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 18px 18px 18px 60px;
+    }
+    .steps li::before {
+      counter-increment: step; content: counter(step);
+      position: absolute; left: 16px; top: 16px; width: 30px; height: 30px; border-radius: 50%;
+      background: var(--primary); color: var(--surface); display: grid; place-items: center; font-weight: 700; font-size: .9rem;
+    }
+    .steps strong { display: block; margin-bottom: 2px; }
+    .steps span { color: var(--muted); font-size: .92rem; }
+
+    .callout {
+      margin-top: 28px; padding: 18px 20px; border-radius: 12px; background: var(--primary-soft);
+      border-left: 4px solid var(--primary); color: var(--text);
+    }
+    .callout p:last-child { margin: 0; }
+
+    /* Module grid */
+    .module-grid { display: grid; gap: 16px; }
+    @media (min-width: 620px) { .module-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 980px) { .module-grid { grid-template-columns: repeat(4, 1fr); } }
+    .module-card {
+      display: flex; flex-direction: column; gap: 10px;
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px;
+      text-decoration: none; color: var(--text); box-shadow: var(--shadow);
+      border-top: 4px solid var(--c);
+      transition: transform .15s ease, box-shadow .15s ease;
+    }
+    .module-card:hover { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(16,35,46,.12); }
+    .module-num { font-family: var(--serif); font-size: 2rem; font-weight: 700; color: var(--c); line-height: 1; }
+    .module-card h3 { margin: 0; font-size: 1.15rem; }
+    .module-card p { color: var(--muted); font-size: .9rem; margin: 0; flex: 1; }
+    .progress { height: 6px; background: var(--surface-2); border-radius: 999px; overflow: hidden; }
+    .progress > span { display: block; height: 100%; background: var(--c, var(--primary)); border-radius: inherit; transition: width .3s ease; }
+    .progress-label { font-size: .78rem; color: var(--muted); display: flex; justify-content: space-between; }
+
+    /* Module view */
+    .module-hero { padding: 40px 0 28px; border-bottom: 1px solid var(--border); background: var(--surface); }
+    .crumbs { font-size: .88rem; color: var(--muted); margin-bottom: 16px; }
+    .crumbs a { color: var(--muted); }
+    .module-hero .module-num { font-size: 3rem; margin-bottom: 8px; }
+    .module-hero .lead { margin-bottom: 20px; }
+    .module-hero .progress { max-width: 420px; height: 8px; }
+
+    .module-layout { display: grid; gap: 28px; padding: 36px 0 64px; }
+    @media (min-width: 960px) { .module-layout { grid-template-columns: 220px 1fr; } }
+    .toc { position: sticky; top: 84px; align-self: start; display: none; }
+    @media (min-width: 960px) { .toc { display: block; } }
+    .toc a {
+      display: block; padding: 7px 12px; border-left: 2px solid var(--border); color: var(--muted);
+      text-decoration: none; font-size: .9rem;
+    }
+    .toc a:hover { color: var(--text); border-color: var(--c); }
+
+    .panel {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 24px; margin-bottom: 20px;
+    }
+    .panel h2 { font-size: 1.45rem; display: flex; align-items: center; gap: 10px; }
+    .panel h2 .tag {
+      font-family: var(--sans); font-size: .72rem; font-weight: 600; letter-spacing: .06em; text-transform: uppercase;
+      background: var(--surface-2); color: var(--muted); padding: 3px 8px; border-radius: 6px;
+    }
+    .case {
+      background: var(--bg); border: 1px dashed var(--border); border-left: 4px solid var(--c);
+      border-radius: 10px; padding: 18px 20px; font-size: 1.02rem;
+    }
+    .case p:last-child { margin: 0; }
+    .list { margin: 0; padding-left: 1.2em; }
+    .list li { margin-bottom: 8px; }
+    .list li::marker { color: var(--c); }
+
+    .checklist { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+    .checklist label {
+      display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border-radius: 10px;
+      border: 1px solid var(--border); background: var(--bg); cursor: pointer;
+    }
+    .checklist input { margin-top: 4px; width: 18px; height: 18px; accent-color: var(--c); flex: none; }
+    .checklist strong { display: block; }
+    .checklist small { color: var(--muted); }
+    .checklist input:checked + div strong { text-decoration: line-through; color: var(--muted); }
+
+    textarea {
+      width: 100%; min-height: 160px; resize: vertical; padding: 14px; border-radius: 10px;
+      border: 1px solid var(--border); background: var(--bg); color: var(--text); font: inherit;
+    }
+    textarea:focus, .checklist label:focus-within { outline: 2px solid var(--c); outline-offset: 1px; }
+    .hint { font-size: .85rem; color: var(--muted); margin-top: 8px; }
+
+    .pager { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .pager a { flex: 1 1 220px; }
+    .pager .btn { justify-content: center; width: 100%; }
+
+    footer { border-top: 1px solid var(--border); padding: 28px 0; color: var(--muted); font-size: .88rem; }
+    footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+
+    [hidden] { display: none !important; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="wrap">
+      <a class="brand" href="#inicio">
+        <span class="brand-mark">U</span>
+        <span>Urología ABP<small>Espacio educativo</small></span>
+      </a>
+      <nav class="nav" aria-label="Principal">
+        <a href="#inicio" class="hide-sm">Bienvenida</a>
+        <a href="#abp">ABP</a>
+        <a href="#modulos">Módulos</a>
+        <button class="theme-btn" id="themeBtn" type="button" aria-label="Cambiar tema claro/oscuro" title="Cambiar tema"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3a9 9 0 0 0 0 18z" fill="currentColor"/></svg></button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===================== VISTA: INICIO ===================== -->
+  <main id="homeView">
+
+    <!-- Bienvenida -->
+    <section class="hero" id="inicio">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">Bienvenida</span>
+          <h1>Aprender urología a partir de problemas reales</h1>
+          <p class="lead">
+            Te damos la bienvenida a este espacio educativo. Aquí encontrarás situaciones clínicas
+            frecuentes en la práctica urológica, diseñadas para que construyas tu conocimiento
+            de forma activa, colaborativa y con sentido clínico.
+          </p>
+          <p class="lead">
+            Cada módulo parte de un caso, plantea preguntas que guían la discusión y te acompaña
+            en la ruta del Aprendizaje Basado en Problemas.
+          </p>
+          <div class="btns">
+            <a class="btn btn-primary" href="#modulos">Explorar los módulos →</a>
+            <a class="btn btn-ghost" href="#abp">¿Qué es el ABP?</a>
+          </div>
+        </div>
+        <aside class="welcome-card" aria-label="Cómo usar este espacio">
+          <h3>Cómo usar este espacio</h3>
+          <ul>
+            <li><span class="dot">1</span><div><strong>Lee el escenario</strong>Cada módulo inicia con un caso clínico desencadenante.</div></li>
+            <li><span class="dot">2</span><div><strong>Discute en equipo</strong>Usa las preguntas orientadoras para identificar lo que sabes y lo que necesitas aprender.</div></li>
+            <li><span class="dot">3</span><div><strong>Estudia y vuelve</strong>Investiga de forma independiente y sintetiza con tu grupo.</div></li>
+            <li><span class="dot">4</span><div><strong>Registra tu avance</strong>Marca los pasos completados y guarda tus notas en cada módulo.</div></li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ABP -->
+    <section class="block alt" id="abp">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">Metodología</span>
+          <h2>Aprendizaje Basado en Problemas</h2>
+          <p>
+            El Aprendizaje Basado en Problemas (ABP) es una estrategia educativa centrada en el estudiante,
+            en la que un problema clínico se presenta <em>antes</em> que la teoría. A partir de él, pequeños
+            grupos identifican sus necesidades de aprendizaje, investigan de forma autónoma y vuelven a
+            reunirse para integrar lo aprendido y resolver el caso. Surgió a finales de los años sesenta en la
+            Facultad de Medicina de la Universidad McMaster (Canadá) y hoy se utiliza ampliamente en la
+            formación de profesionales de la salud.
+          </p>
+        </div>
+
+        <div class="cards-3">
+          <div class="info-card">
+            <h3>El problema como punto de partida</h3>
+            <p>Los casos reflejan situaciones que encontrarás en la práctica. El conocimiento se construye para resolverlos, no de forma aislada.</p>
+          </div>
+          <div class="info-card">
+            <h3>El estudiante, protagonista</h3>
+            <p>Formulas hipótesis, defines objetivos de aprendizaje, buscas evidencia y la compartes con tu equipo de forma crítica.</p>
+          </div>
+          <div class="info-card">
+            <h3>El docente, facilitador</h3>
+            <p>El tutor orienta la discusión, estimula el razonamiento clínico y retroalimenta el proceso sin entregar las respuestas.</p>
+          </div>
+        </div>
+
+        <h3 style="margin-top:44px">Los siete pasos del ABP</h3>
+        <p style="color:var(--muted);max-width:70ch">Una forma clásica de organizar el trabajo en grupo es la secuencia de “siete pasos” (modelo de Maastricht). Cada módulo de esta plataforma la utiliza como ruta de trabajo.</p>
+        <ol class="steps" id="abpSteps"></ol>
+
+        <div class="callout">
+          <p><strong>Competencias que se fortalecen:</strong> razonamiento clínico, aprendizaje autodirigido, búsqueda y lectura crítica de la evidencia, trabajo en equipo y comunicación.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Módulos -->
+    <section class="block" id="modulos">
+      <div class="wrap">
+        <div class="section-head">
+          <span class="eyebrow">Módulos</span>
+          <h2>Módulos de aprendizaje</h2>
+          <p>Selecciona un módulo para comenzar. Tu progreso en cada uno se guarda en este navegador.</p>
+        </div>
+        <div class="module-grid" id="moduleGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== VISTA: MÓDULO ===================== -->
+  <main id="moduleView" hidden></main>
+
+  <footer>
+    <div class="wrap">
+      <span>Urología ABP · Espacio educativo</span>
+      <span>Contenido con fines académicos. No sustituye el juicio clínico ni las guías de práctica vigentes.</span>
+    </div>
+  </footer>
+
+<script>
+/* =====================================================================
+   CONTENIDO EDITABLE
+   Para modificar un módulo, edite su objeto en la lista MODULOS.
+   - escenario: párrafos del caso clínico desencadenante
+   - objetivos: objetivos de aprendizaje
+   - preguntas: preguntas orientadoras para la discusión
+   - recursos:  lecturas o enlaces específicos del módulo (opcional)
+   ===================================================================== */
+
+const PASOS_ABP = [
+  { t: "Clarificar términos", d: "Identificar y aclarar conceptos o palabras desconocidas del escenario." },
+  { t: "Definir el problema", d: "Precisar qué fenómeno o situación necesita explicación." },
+  { t: "Lluvia de ideas", d: "Proponer posibles explicaciones a partir del conocimiento previo." },
+  { t: "Organizar hipótesis", d: "Sistematizar y relacionar las explicaciones propuestas." },
+  { t: "Objetivos de aprendizaje", d: "Formular qué necesita aprender el grupo para resolver el problema." },
+  { t: "Estudio independiente", d: "Buscar, leer y analizar críticamente la información." },
+  { t: "Síntesis y discusión", d: "Compartir hallazgos, integrar el conocimiento y resolver el caso." }
+];
+
+const RECURSOS_GENERALES = [
+  { t: "Guías de la European Association of Urology (EAU)", url: "https://uroweb.org/guidelines" },
+  { t: "Guías de la American Urological Association (AUA)", url: "https://www.auanet.org/guidelines-and-quality/guidelines" }
+];
+
+const MODULOS = [
+  {
+    id: "urolitiasis",
+    titulo: "Urolitiasis",
+    color: "#0b6e79",
+    resumen: "Cólico renal, diagnóstico por imagen, manejo agudo y prevención de recurrencias.",
+    escenario: [
+      "Hombre de 38 años que consulta a urgencias por dolor de inicio súbito en la región lumbar izquierda, de tipo cólico, que se irradia hacia la ingle. Refiere náuseas y un episodio de vómito. No encuentra una posición que le alivie el dolor.",
+      "Está afebril y hemodinámicamente estable. El uroanálisis muestra hematuria microscópica. Comenta que su padre “sufría de cálculos”."
+    ],
+    objetivos: [
+      "Describir la fisiopatología de la formación de cálculos y los principales tipos de litiasis.",
+      "Reconocer la presentación clínica del cólico renal y sus diagnósticos diferenciales.",
+      "Seleccionar el estudio de imagen adecuado según el contexto clínico.",
+      "Plantear el manejo analgésico y la terapia médica expulsiva.",
+      "Identificar las indicaciones de descompresión urgente y de tratamiento intervencionista.",
+      "Proponer medidas de prevención de recurrencia."
+    ],
+    preguntas: [
+      "¿Qué factores determinan la probabilidad de expulsión espontánea de un cálculo?",
+      "¿Qué hallazgos convierten este caso en una urgencia urológica?",
+      "¿Qué estudios metabólicos solicitarías y en qué pacientes?"
+    ]
+  },
+  {
+    id: "retencion-urinaria",
+    titulo: "Retención urinaria",
+    color: "#7c3aed",
+    resumen: "Causas obstructivas, neurogénicas y farmacológicas; abordaje y manejo inicial.",
+    escenario: [
+      "Hombre de 72 años llevado a urgencias porque no ha podido orinar en las últimas 10 horas. Presenta dolor suprapúbico intenso y agitación. Desde hace dos días toma un antigripal de venta libre.",
+      "Al examen se palpa una masa suprapúbica dolorosa y mate a la percusión. Refiere que desde hace meses su chorro urinario es débil."
+    ],
+    objetivos: [
+      "Diferenciar retención urinaria aguda y crónica.",
+      "Clasificar las causas de retención (obstructivas, neurogénicas, farmacológicas, infecciosas, otras).",
+      "Describir la técnica e indicaciones del cateterismo uretral y suprapúbico.",
+      "Reconocer y manejar las complicaciones posteriores a la descompresión.",
+      "Planear el seguimiento y la prueba de retiro de sonda."
+    ],
+    preguntas: [
+      "¿Qué medicamentos pueden precipitar una retención urinaria y por qué mecanismo?",
+      "¿Cuándo está contraindicado el cateterismo uretral?",
+      "¿Qué estudios complementarios realizarías después de la descompresión?"
+    ]
+  },
+  {
+    id: "hematuria",
+    titulo: "Hematuria",
+    color: "#b91c1c",
+    resumen: "Hematuria micro y macroscópica, estudio etiológico y signos de alarma.",
+    escenario: [
+      "Paciente de 63 años, fumador de 30 paquetes-año, que consulta por dos episodios de orina de color rojo con pequeños coágulos durante la última semana. No presenta dolor ni síntomas urinarios irritativos.",
+      "Trabajó durante 20 años en una fábrica de tintes. El examen físico es normal."
+    ],
+    objetivos: [
+      "Definir hematuria microscópica y macroscópica, y diferenciarla de la pseudohematuria.",
+      "Distinguir el origen glomerular del no glomerular.",
+      "Identificar factores de riesgo para neoplasia urotelial.",
+      "Proponer una ruta diagnóstica racional (imágenes y cistoscopia) según el riesgo.",
+      "Reconocer las situaciones que requieren manejo urgente (p. ej., retención por coágulos)."
+    ],
+    preguntas: [
+      "¿Por qué la hematuria macroscópica indolora es un signo de alarma?",
+      "¿Qué hallazgos en el uroanálisis orientan hacia una causa glomerular?",
+      "¿Cómo cambia el estudio según la edad y los factores de riesgo del paciente?"
+    ]
+  },
+  {
+    id: "cancer-de-prostata",
+    titulo: "Cáncer de próstata",
+    color: "#1d4ed8",
+    resumen: "Tamizaje, interpretación del PSA, diagnóstico, estratificación y tratamiento.",
+    escenario: [
+      "Hombre de 64 años, asintomático, que acude a control con un PSA de 7,8 ng/mL (hace dos años era de 3,1 ng/mL). Su hermano fue diagnosticado con cáncer de próstata a los 58 años.",
+      "Al tacto rectal se palpa un nódulo indurado en el lóbulo derecho. El paciente pregunta si “tiene cáncer” y qué debe hacer."
+    ],
+    objetivos: [
+      "Describir la epidemiología y los factores de riesgo del cáncer de próstata.",
+      "Analizar los beneficios y riesgos del tamizaje y la toma de decisiones compartida.",
+      "Interpretar el PSA y los factores que lo modifican.",
+      "Explicar el papel de la resonancia multiparamétrica y la biopsia prostática.",
+      "Comprender el sistema de Gleason / ISUP y la estratificación de riesgo.",
+      "Conocer las opciones terapéuticas según el estadio (vigilancia activa, cirugía, radioterapia, terapia hormonal)."
+    ],
+    preguntas: [
+      "¿Qué información necesita el paciente para tomar una decisión informada?",
+      "¿Qué condiciones distintas al cáncer pueden elevar el PSA?",
+      "¿Cuándo es razonable la vigilancia activa?"
+    ]
+  },
+  {
+    id: "infeccion-de-vias-urinarias",
+    titulo: "Infección de vías urinarias",
+    color: "#ca8a04",
+    resumen: "Cistitis, pielonefritis, IVU complicada y uso racional de antibióticos.",
+    escenario: [
+      "Mujer de 24 años que consulta por disuria, polaquiuria y urgencia miccional de dos días de evolución. No tiene fiebre ni flujo vaginal. Es su segundo episodio en el año.",
+      "Tres días después regresa con fiebre de 38,9 °C, escalofríos y dolor en la fosa renal derecha. Puño-percusión positiva."
+    ],
+    objetivos: [
+      "Clasificar las infecciones urinarias (cistitis no complicada, IVU complicada, pielonefritis, bacteriuria asintomática).",
+      "Reconocer los principales agentes etiológicos y los patrones de resistencia locales.",
+      "Definir cuándo solicitar urocultivo y estudios de imagen.",
+      "Seleccionar el tratamiento antibiótico empírico adecuado y su duración.",
+      "Identificar criterios de hospitalización y de urosepsis.",
+      "Proponer medidas de prevención en IVU recurrente."
+    ],
+    preguntas: [
+      "¿Qué cambió entre la primera y la segunda consulta y cómo modifica el manejo?",
+      "¿En qué situaciones se debe tratar la bacteriuria asintomática?",
+      "¿Cómo influye la resistencia antimicrobiana local en la elección del antibiótico?"
+    ]
+  },
+  {
+    id: "disfuncion-erectil",
+    titulo: "Disfunción eréctil",
+    color: "#0f766e",
+    resumen: "Fisiología de la erección, etiología, riesgo cardiovascular y tratamiento escalonado.",
+    escenario: [
+      "Hombre de 56 años con diabetes tipo 2 e hipertensión arterial, fumador activo, que refiere dificultad progresiva para lograr y mantener erecciones durante el último año. Conserva el deseo sexual.",
+      "Toma metformina y un betabloqueador. Comenta que le cuesta hablar del tema y que su pareja “cree que es por otra cosa”."
+    ],
+    objetivos: [
+      "Describir la fisiología de la erección.",
+      "Clasificar las causas de disfunción eréctil (vasculogénica, neurogénica, hormonal, psicógena, farmacológica).",
+      "Reconocer la disfunción eréctil como marcador de riesgo cardiovascular.",
+      "Realizar una evaluación clínica y paraclínica dirigida, incluyendo cuestionarios validados (IIEF-5).",
+      "Plantear un tratamiento escalonado y conocer las contraindicaciones de los inhibidores de la PDE5.",
+      "Abordar la consulta con un enfoque empático y de pareja."
+    ],
+    preguntas: [
+      "¿Qué relación existe entre la disfunción eréctil y la enfermedad coronaria?",
+      "¿Qué elementos de la historia orientan hacia una causa orgánica o psicógena?",
+      "¿Qué medicamentos están contraindicados con los inhibidores de la PDE5?"
+    ]
+  },
+  {
+    id: "incontinencia-urinaria",
+    titulo: "Incontinencia urinaria",
+    color: "#be185d",
+    resumen: "Tipos de incontinencia, evaluación clínica y manejo conservador, farmacológico y quirúrgico.",
+    escenario: [
+      "Mujer de 58 años, con tres partos vaginales, que refiere escapes de orina al toser, reír o levantar objetos. En los últimos meses también presenta urgencia y, en ocasiones, no alcanza a llegar al baño.",
+      "Ha dejado de asistir a sus clases de baile y usa protectores todo el día. Tiene sobrepeso."
+    ],
+    objetivos: [
+      "Diferenciar los tipos de incontinencia (de esfuerzo, de urgencia, mixta, por rebosamiento, funcional).",
+      "Describir los mecanismos fisiopatológicos de la continencia.",
+      "Realizar una evaluación inicial: historia, diario miccional, examen pélvico, uroanálisis y residuo posmiccional.",
+      "Proponer el manejo conservador (entrenamiento del piso pélvico, entrenamiento vesical, cambios de hábitos).",
+      "Conocer las opciones farmacológicas y quirúrgicas y sus indicaciones.",
+      "Valorar el impacto en la calidad de vida."
+    ],
+    preguntas: [
+      "¿Qué datos de la historia permiten clasificar el tipo de incontinencia?",
+      "¿Cuál es el primer escalón de tratamiento y por qué?",
+      "¿Qué precauciones se deben tener con los antimuscarínicos en adultos mayores?"
+    ]
+  },
+  {
+    id: "hiperplasia-prostatica",
+    titulo: "Hiperplasia prostática",
+    color: "#c2410c",
+    resumen: "Síntomas del tracto urinario inferior, evaluación con IPSS y opciones terapéuticas.",
+    escenario: [
+      "Hombre de 68 años que consulta porque se levanta tres veces cada noche a orinar. Refiere chorro débil, necesidad de pujar para iniciar la micción y sensación de vaciamiento incompleto. Los síntomas han empeorado durante los últimos dos años.",
+      "Al tacto rectal la próstata es aumentada de tamaño, lisa, de consistencia elástica y no dolorosa."
+    ],
+    objetivos: [
+      "Explicar la fisiopatología de la hiperplasia prostática benigna.",
+      "Diferenciar los síntomas de almacenamiento y de vaciamiento del tracto urinario inferior.",
+      "Aplicar e interpretar el puntaje internacional de síntomas prostáticos (IPSS).",
+      "Seleccionar los estudios de evaluación inicial (uroanálisis, PSA, residuo posmiccional, uroflujometría).",
+      "Comparar las opciones de tratamiento médico (alfa-bloqueadores, inhibidores de la 5-alfa reductasa, terapia combinada).",
+      "Identificar las indicaciones de tratamiento quirúrgico."
+    ],
+    preguntas: [
+      "¿Qué otras condiciones pueden causar síntomas urinarios similares?",
+      "¿Cómo elegirías entre un alfa-bloqueador y un inhibidor de la 5-alfa reductasa?",
+      "¿Qué complicaciones de la HPB indican la necesidad de cirugía?"
+    ]
+  }
+];
+
+/* =====================================================================
+   LÓGICA DE LA PLATAFORMA
+   ===================================================================== */
+
+const $ = (sel) => document.querySelector(sel);
+const homeView = $("#homeView");
+const moduleView = $("#moduleView");
+
+// Almacenamiento local seguro (puede no estar disponible)
+const store = {
+  get(key, fallback) {
+    try { const v = localStorage.getItem(key); return v === null ? fallback : JSON.parse(v); }
+    catch { return fallback; }
+  },
+  set(key, value) {
+    try { localStorage.setItem(key, JSON.stringify(value)); } catch { /* sin almacenamiento */ }
+  }
+};
+const progressKey = (id) => `abp-uro:pasos:${id}`;
+const notesKey = (id) => `abp-uro:notas:${id}`;
+const getSteps = (id) => store.get(progressKey(id), []);
+const pct = (id) => Math.round((getSteps(id).length / PASOS_ABP.length) * 100);
+const pad = (n) => String(n).padStart(2, "0");
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+// Tema
+const themeBtn = $("#themeBtn");
+const savedTheme = store.get("abp-uro:tema", null);
+if (savedTheme) document.documentElement.dataset.theme = savedTheme;
+themeBtn.addEventListener("click", () => {
+  const isDark = document.documentElement.dataset.theme
+    ? document.documentElement.dataset.theme === "dark"
+    : matchMedia("(prefers-color-scheme: dark)").matches;
+  const next = isDark ? "light" : "dark";
+  document.documentElement.dataset.theme = next;
+  store.set("abp-uro:tema", next);
+});
+
+// Pasos ABP (sección de introducción)
+$("#abpSteps").innerHTML = PASOS_ABP
+  .map((p) => `<li><strong>${esc(p.t)}</strong><span>${esc(p.d)}</span></li>`).join("");
+
+// Tarjetas de módulos
+function renderGrid() {
+  $("#moduleGrid").innerHTML = MODULOS.map((m, i) => {
+    const p = pct(m.id);
+    return `
+      <a class="module-card" href="#/modulo/${m.id}" style="--c:${m.color}">
+        <span class="module-num">${pad(i + 1)}</span>
+        <h3>${esc(m.titulo)}</h3>
+        <p>${esc(m.resumen)}</p>
+        <div class="progress-label"><span>Progreso</span><span>${p}%</span></div>
+        <div class="progress" aria-hidden="true"><span style="width:${p}%"></span></div>
+      </a>`;
+  }).join("");
+}
+
+// Vista de un módulo
+function renderModule(id) {
+  const i = MODULOS.findIndex((m) => m.id === id);
+  if (i < 0) { location.hash = "#modulos"; return; }
+  const m = MODULOS[i];
+  const prev = MODULOS[i - 1];
+  const next = MODULOS[i + 1];
+  const done = new Set(getSteps(m.id));
+  const recursos = [...(m.recursos || []), ...RECURSOS_GENERALES];
+
+  moduleView.style.setProperty("--c", m.color);
+  moduleView.innerHTML = `
+    <div class="module-hero">
+      <div class="wrap">
+        <nav class="crumbs" aria-label="Ruta"><a href="#inicio">Inicio</a> / <a href="#modulos">Módulos</a> / ${esc(m.titulo)}</nav>
+        <div class="module-num">Módulo ${pad(i + 1)}</div>
+        <h1>${esc(m.titulo)}</h1>
+        <p class="lead">${esc(m.resumen)}</p>
+        <div class="progress-label" style="max-width:420px"><span>Progreso en la ruta ABP</span><span id="pctLabel">${pct(m.id)}%</span></div>
+        <div class="progress"><span id="pctBar" style="width:${pct(m.id)}%"></span></div>
+      </div>
+    </div>
+
+    <div class="wrap module-layout">
+      <nav class="toc" aria-label="Secciones del módulo">
+        <a href="#/modulo/${m.id}" data-target="escenario">Escenario clínico</a>
+        <a href="#/modulo/${m.id}" data-target="objetivos">Objetivos</a>
+        <a href="#/modulo/${m.id}" data-target="preguntas">Preguntas orientadoras</a>
+        <a href="#/modulo/${m.id}" data-target="ruta">Ruta ABP</a>
+        <a href="#/modulo/${m.id}" data-target="recursos">Recursos</a>
+        <a href="#/modulo/${m.id}" data-target="notas">Mis notas</a>
+      </nav>
+
+      <div>
+        <section class="panel" id="escenario">
+          <h2>Escenario clínico <span class="tag">Problema</span></h2>
+          <div class="case">${m.escenario.map((p) => `<p>${esc(p)}</p>`).join("")}</div>
+        </section>
+
+        <section class="panel" id="objetivos">
+          <h2>Objetivos de aprendizaje</h2>
+          <ol class="list">${m.objetivos.map((o) => `<li>${esc(o)}</li>`).join("")}</ol>
+        </section>
+
+        <section class="panel" id="preguntas">
+          <h2>Preguntas orientadoras</h2>
+          <ul class="list">${m.preguntas.map((q) => `<li>${esc(q)}</li>`).join("")}</ul>
+        </section>
+
+        <section class="panel" id="ruta">
+          <h2>Ruta ABP <span class="tag">Siete pasos</span></h2>
+          <p style="color:var(--muted)">Marca cada paso a medida que tu grupo lo complete.</p>
+          <ul class="checklist">
+            ${PASOS_ABP.map((p, k) => `
+              <li><label>
+                <input type="checkbox" data-step="${k}" ${done.has(k) ? "checked" : ""}>
+                <div><strong>${k + 1}. ${esc(p.t)}</strong><small>${esc(p.d)}</small></div>
+              </label></li>`).join("")}
+          </ul>
+        </section>
+
+        <section class="panel" id="recursos">
+          <h2>Recursos</h2>
+          <ul class="list">
+            ${recursos.map((r) => `<li><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.t)}</a></li>`).join("")}
+          </ul>
+          <p class="hint">Complementa con los libros de texto y las bases de datos de tu institución.</p>
+        </section>
+
+        <section class="panel" id="notas">
+          <h2>Mis notas</h2>
+          <textarea id="notes" placeholder="Términos por aclarar, hipótesis del grupo, objetivos de aprendizaje, conclusiones…">${esc(store.get(notesKey(m.id), ""))}</textarea>
+          <p class="hint" id="notesHint">Las notas se guardan automáticamente en este navegador.</p>
+        </section>
+
+        <nav class="pager" aria-label="Navegación entre módulos">
+          ${prev ? `<a class="btn btn-ghost" href="#/modulo/${prev.id}">← ${esc(prev.titulo)}</a>` : `<span></span>`}
+          ${next ? `<a class="btn btn-primary" href="#/modulo/${next.id}">${esc(next.titulo)} →</a>`
+                 : `<a class="btn btn-primary" href="#modulos">Volver a los módulos</a>`}
+        </nav>
+      </div>
+    </div>`;
+
+  // Índice lateral: desplazamiento sin cambiar la ruta
+  moduleView.querySelectorAll(".toc a").forEach((a) => a.addEventListener("click", (e) => {
+    e.preventDefault();
+    document.getElementById(a.dataset.target)?.scrollIntoView({ block: "start" });
+  }));
+
+  // Checklist de pasos
+  moduleView.querySelectorAll("[data-step]").forEach((cb) => cb.addEventListener("change", () => {
+    const steps = [...moduleView.querySelectorAll("[data-step]:checked")].map((x) => Number(x.dataset.step));
+    store.set(progressKey(m.id), steps);
+    const p = pct(m.id);
+    $("#pctLabel").textContent = p + "%";
+    $("#pctBar").style.width = p + "%";
+  }));
+
+  // Notas con guardado automático
+  let t;
+  $("#notes").addEventListener("input", (e) => {
+    clearTimeout(t);
+    t = setTimeout(() => {
+      store.set(notesKey(m.id), e.target.value);
+      $("#notesHint").textContent = "Guardado ✓";
+    }, 400);
+  });
+}
+
+// Enrutador simple basado en el hash
+function route() {
+  const hash = location.hash || "#inicio";
+  const match = hash.match(/^#\/modulo\/([\w-]+)/);
+  if (match) {
+    homeView.hidden = true;
+    moduleView.hidden = false;
+    renderModule(match[1]);
+    window.scrollTo(0, 0);
+    document.title = `${MODULOS.find((m) => m.id === match[1])?.titulo || "Módulo"} · Urología ABP`;
+  } else {
+    moduleView.hidden = true;
+    homeView.hidden = false;
+    renderGrid();
+    document.title = "Urología ABP";
+    const el = document.getElementById(hash.slice(1));
+    if (el) requestAnimationFrame(() => el.scrollIntoView({ block: "start" }));
+  }
+}
+
+window.addEventListener("hashchange", route);
+route();
+</script>
+</body>
+</html>

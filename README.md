@@ -1,12 +1,13 @@
-# Urología ABP · Espacio educativo
+# Urología ABP · Universidad del Valle
 
-Plataforma web (un solo archivo HTML) para la enseñanza de urología mediante
-Aprendizaje Basado en Problemas (ABP).
+Plataforma web (un solo archivo HTML) de la Universidad del Valle para la enseñanza
+de urología mediante Aprendizaje Basado en Problemas (ABP). Diseño oscuro con la
+paleta institucional (rojo Univalle) y el logo embebido en el membrete.
 
 ## Contenido
 
-- **Bienvenida** y guía rápida de uso.
-- **Introducción al ABP**: qué es, roles del estudiante y del tutor, y los siete pasos.
+- **Bienvenida** breve.
+- **Introducción al ABP** en ideas principales y los siete pasos.
 - **8 módulos**: Urolitiasis, Retención urinaria, Hematuria, Cáncer de próstata,
   Infección de vías urinarias, Disfunción eréctil, Incontinencia urinaria e
   Hiperplasia prostática.

@@ -1,8 +1,9 @@
 # Urología ABP · Universidad del Valle
 
 Plataforma web (un solo archivo HTML) de la Universidad del Valle para la enseñanza
-de urología mediante Aprendizaje Basado en Problemas (ABP). Diseño oscuro con la
-paleta institucional (rojo Univalle) y el logo embebido en el membrete.
+de urología mediante Aprendizaje Basado en Problemas (ABP). Diseño sobrio sobre fondo
+blanco, con bordes redondeados, paleta azul marino, vino, bronce y gris, y el logo
+embebido en el membrete.
 
 ## Contenido
 

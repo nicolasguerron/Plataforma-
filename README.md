@@ -17,12 +17,34 @@ escenario clínico, objetivos de aprendizaje, preguntas orientadoras, ruta de tr
 con lista de verificación, recursos y un espacio de notas. El progreso y las notas se
 guardan en el navegador de cada estudiante.
 
+## Casos interactivos
+
+El módulo de **Retención urinaria** incluye un caso interactivo (sin inteligencia
+artificial) que recorre 6 etapas: anamnesis, examen físico, análisis y plan, sonda
+vesical, punción suprapúbica y cierre.
+
+- En la anamnesis y el examen físico el estudiante escribe preguntas abiertas. El
+  paciente las reconoce por **palabras clave** y responde según el caso.
+- Las decisiones se toman con opciones y formularios, y cada etapa termina con
+  retroalimentación (✅ / 🟡 / ❌) y mensajes clave.
+- Como no usa IA, solo reconoce las formas de preguntar previstas. Si una pregunta
+  frecuente no se reconoce, agregue palabras a la expresión `p` del tema
+  correspondiente en `assets/casos/retencion-urinaria.js`.
+- El contenido del caso está en un archivo público: un estudiante con conocimientos
+  técnicos podría leerlo en el código fuente.
+
+Para agregar un caso a otro módulo: cree `assets/casos/<id>.js` siguiendo el mismo
+formato, cárguelo con una etiqueta `<script>` en `index.html` y agregue
+`caso: "<id>"` al módulo en la lista `MODULOS`.
+
 ## Archivos
 
 ```
 index.html                 Página completa (estilos, contenido y lógica)
 assets/logo-univalle.webp  Logo del membrete
 assets/fotos/foto-1..4     Fotos del carrusel
+assets/js/simulador.js     Motor de los casos interactivos (chat, opciones, formularios)
+assets/casos/              Casos interactivos (uno por archivo)
 ```
 
 ## Uso

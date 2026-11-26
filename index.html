@@ -250,6 +250,73 @@
     textarea:focus, .checklist label:focus-within { outline: 2px solid var(--c); outline-offset: 1px; }
     .hint { font-size: .86rem; color: var(--muted); margin: 8px 0 0; }
 
+    /* ---------- Caso interactivo ---------- */
+    .btn-sm { padding: 9px 16px; font-size: .9rem; }
+    .sim { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: #fff; }
+    .sim-head {
+      display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap;
+      padding: 12px 16px; background: var(--soft); border-bottom: 1px solid var(--line); color: var(--navy);
+    }
+    .sim-etapas { list-style: none; margin: 0; padding: 12px 16px; display: flex; flex-wrap: wrap; gap: 6px; border-bottom: 1px solid var(--line); }
+    .sim-etapas li {
+      display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px 4px 4px; border-radius: 999px;
+      background: var(--soft); color: var(--muted); font-size: .8rem; font-weight: 700;
+    }
+    .sim-etapas li span {
+      width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center;
+      background: #e3e7ed; color: var(--muted); font-size: .75rem;
+    }
+    .sim-etapas li.activa { background: color-mix(in srgb, var(--c) 12%, #fff); color: var(--c); }
+    .sim-etapas li.activa span, .sim-etapas li.hecha span { background: var(--c); color: #fff; }
+    .sim-etapas li.hecha span { opacity: .55; }
+    .sim-log {
+      height: 520px; max-height: 70vh; overflow-y: auto; padding: 16px;
+      display: flex; flex-direction: column; gap: 10px; background: #fbfcfd;
+    }
+    .sim-msg { max-width: 85%; padding: 10px 14px; border-radius: 14px; font-size: .96rem; line-height: 1.55; overflow-wrap: anywhere; }
+    .sim-msg p { margin: 0 0 .6em; }
+    .sim-msg p:last-child, .sim-msg ul:last-child, .sim-msg ol:last-child { margin-bottom: 0; }
+    .sim-msg ul, .sim-msg ol { margin: 4px 0 .6em; padding-left: 1.2em; }
+    .sim-msg li { margin-bottom: 4px; }
+    .sim-quien { display: block; font-size: .72rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; margin-bottom: 2px; }
+    .sim-paciente { align-self: flex-start; background: #e9eff6; border-top-left-radius: 4px; }
+    .sim-paciente .sim-quien { color: var(--navy); }
+    .sim-tutor { align-self: flex-start; background: #f7ecee; border-top-left-radius: 4px; }
+    .sim-tutor .sim-quien { color: var(--wine); }
+    .sim-enfermera { align-self: flex-start; background: #f4eee5; border-top-left-radius: 4px; }
+    .sim-enfermera .sim-quien { color: #7a5f39; }
+    .sim-estudiante { align-self: flex-end; background: var(--navy); color: #fff; border-top-right-radius: 4px; }
+    .sim-estudiante .sim-quien { color: rgba(255,255,255,.75); }
+    .sim-sistema { align-self: stretch; max-width: none; background: #fff; border: 1px solid var(--line); }
+    .sim-vitales { color: var(--muted); font-size: .9rem; }
+    .sim-check { list-style: none; padding: 0 !important; display: grid; gap: 6px; }
+    .sim-check li { display: flex; gap: 8px; align-items: flex-start; margin: 0; }
+    .sim-check small { color: var(--muted); }
+    .sim-acciones { padding: 12px 16px; border-top: 1px solid var(--line); background: #fff; }
+    .sim-acciones:empty { display: none; }
+    .sim-chat { display: flex; gap: 8px; align-items: flex-end; }
+    .sim-chat textarea, .sim-form textarea { min-height: 0; background: #fff; padding: 10px 12px; }
+    .sim-chat textarea { flex: 1; resize: none; height: 46px; }
+    .sim-botones { display: flex; flex-wrap: wrap; gap: 8px; justify-content: flex-end; margin-top: 10px; }
+    .sim-botones:empty { display: none; }
+    .sim-chat + .sim-botones { margin-top: 10px; }
+    .sim-opciones { display: grid; gap: 8px; }
+    .sim-opcion {
+      text-align: left; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line);
+      background: #fff; color: var(--text); font: inherit; cursor: pointer; transition: border-color .15s ease, background .15s ease;
+    }
+    .sim-opcion:hover, .sim-opcion:focus-visible { border-color: var(--c); background: var(--soft); outline: none; }
+    .sim-form label { display: block; font-weight: 700; font-size: .92rem; margin-bottom: 12px; }
+    .sim-form textarea { margin-top: 6px; font-weight: 400; }
+    .sim-autoeval p { margin: 0 0 8px; }
+    .sim-autoeval label { display: flex; gap: 10px; align-items: flex-start; padding: 6px 0; cursor: pointer; }
+    .sim-autoeval input { width: 18px; height: 18px; margin-top: 3px; accent-color: var(--c); flex: none; }
+    @media (max-width: 559px) {
+      .sim-msg { max-width: 94%; }
+      .sim-log { padding: 12px; }
+      .sim-acciones, .sim-etapas, .sim-head { padding-left: 12px; padding-right: 12px; }
+    }
+
     .pager { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 24px; }
     .pager > * { flex: 1 1 220px; }
 
@@ -360,6 +427,8 @@
     </div>
   </footer>
 
+<script src="assets/js/simulador.js"></script>
+<script src="assets/casos/retencion-urinaria.js"></script>
 <script>
 /* =====================================================================
    CONTENIDO EDITABLE
@@ -411,21 +480,22 @@ const MODULOS = [
   {
     id: "retencion-urinaria",
     titulo: "Retención urinaria",
+    caso: "retencion-urinaria",   // caso interactivo en assets/casos/retencion-urinaria.js
     escenario: [
-      "Hombre de 72 años llevado a urgencias porque no ha podido orinar en las últimas 10 horas. Presenta dolor suprapúbico intenso y agitación. Desde hace dos días toma un antigripal de venta libre.",
-      "Al examen se palpa una masa suprapúbica dolorosa y mate a la percusión. Refiere que desde hace meses su chorro urinario es débil."
+      "Servicio de urgencias, 2:00 a. m. Don Jorge, de 70 años, llega acompañado de su hijo. Está inquieto, se toca el bajo vientre y camina de un lado a otro.",
+      "“Doctor, no puedo orinar. Tengo muchas ganas, pero no me sale nada. Me duele mucho aquí abajo.”"
     ],
     objetivos: [
-      "Diferenciar retención urinaria aguda y crónica.",
-      "Clasificar las causas de retención (obstructivas, neurogénicas, farmacológicas, infecciosas, otras).",
-      "Describir la técnica e indicaciones del cateterismo uretral y suprapúbico.",
-      "Reconocer y manejar las complicaciones posteriores a la descompresión.",
-      "Planear el seguimiento y la prueba de retiro de sonda."
+      "Hacer una anamnesis dirigida a las causas de retención urinaria: obstrucción prostática, estrechez uretral, causa neurogénica y medicamentos.",
+      "Identificar el globo vesical y examinar de forma activa el pene en busca de fimosis, liquen escleroso y meato puntiforme.",
+      "Priorizar el drenaje de la vejiga sin condicionar la conducta a paraclínicos.",
+      "Elegir el tipo, el calibre y las vías de la sonda vesical.",
+      "Resolver la sonda que no pasa: revisar la técnica y, si falla, plantear la punción suprapúbica evacuadora."
     ],
     preguntas: [
-      "¿Qué medicamentos pueden precipitar una retención urinaria y por qué mecanismo?",
-      "¿Cuándo está contraindicado el cateterismo uretral?",
-      "¿Qué estudios complementarios realizarías después de la descompresión?"
+      "¿Qué antecedentes debes buscar de forma dirigida en un paciente con retención urinaria?",
+      "¿Por qué los paraclínicos no cambian la conducta inicial?",
+      "¿Qué haces si la sonda vesical no pasa?"
     ]
   },
   {
@@ -640,6 +710,7 @@ function renderModule(id) {
   const next = MODULOS[i + 1];
   const done = new Set(getSteps(m.id));
   const recursos = [...(m.recursos || []), ...RECURSOS_GENERALES];
+  const caso = m.caso && window.CASOS ? window.CASOS[m.caso] : null;
 
   moduleView.style.setProperty("--c", color(i));
   moduleView.innerHTML = `
@@ -658,6 +729,7 @@ function renderModule(id) {
     <div class="wrap module-layout">
       <nav class="toc" aria-label="Secciones del módulo">
         <a href="#/modulo/${m.id}" data-target="escenario">Escenario</a>
+        ${caso ? `<a href="#/modulo/${m.id}" data-target="caso">Caso interactivo</a>` : ""}
         <a href="#/modulo/${m.id}" data-target="objetivos">Objetivos</a>
         <a href="#/modulo/${m.id}" data-target="preguntas">Preguntas</a>
         <a href="#/modulo/${m.id}" data-target="ruta">Ruta de trabajo</a>
@@ -670,6 +742,13 @@ function renderModule(id) {
           <h2>Escenario clínico</h2>
           <div class="case">${m.escenario.map((p) => `<p>${esc(p)}</p>`).join("")}</div>
         </section>
+
+        ${caso ? `
+        <section class="panel" id="caso">
+          <h2>Caso interactivo</h2>
+          <p class="hint" style="margin:0 0 14px">${esc(caso.autor)}. Si sales del módulo, el caso se reinicia.</p>
+          <div class="sim" id="simulador"></div>
+        </section>` : ""}
 
         <section class="panel" id="objetivos">
           <h2>Objetivos de aprendizaje</h2>
@@ -713,6 +792,9 @@ function renderModule(id) {
         </nav>
       </div>
     </div>`;
+
+  // Caso interactivo
+  if (caso) window.Simulador.montar(document.getElementById("simulador"), caso);
 
   // Índice lateral: desplazamiento sin cambiar la ruta
   moduleView.querySelectorAll(".toc a").forEach((a) => a.addEventListener("click", (e) => {
